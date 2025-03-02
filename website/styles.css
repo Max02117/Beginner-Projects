@@ -1,0 +1,29 @@
+h1 {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    text-align: center;
+}
+p {
+    padding: 10px;
+    width: 80%;
+    margin: 0 auto;
+}
+img {
+    border: 2px solid black;
+    border-radius: 10px;
+    display: block;
+    margin: 10px auto;
+}
+button {
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin: 10px auto;
+    display: block;
+}
+.text {
+    text-align: center;
+}
