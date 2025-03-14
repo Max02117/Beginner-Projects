@@ -3,7 +3,7 @@
 
 ## Проекты  
 ### C  
-- `EncryptDecrypt.c` — шифратор/дешифратор текста (например, шифр Цезаря).  
+- `EncryptDecrypt.c` — шифратор/дешифратор текста Цезаря.  
 
 ### SQL  
 - `BasicSQL.sql` — базовые SQL-запросы: создание таблиц, выборка данных.  
@@ -17,3 +17,5 @@
 #### 8-kyu
 - `Even_or_Odd.py`
 *Задание:* Create a function that takes an integer as an argument and returns "Even" for even numbers or "Odd" for odd numbers.
+- `Multiply.py`
+*Задание:* This code does not execute properly. Try to figure out why.
