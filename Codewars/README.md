@@ -23,4 +23,9 @@
   - [`sum_of_positive.py`](8-kyu/sum_of_positive.py):  
     *Условие (EN):* You get an array of numbers, return the sum of all of the positives ones.  
     *Комментарий:* Вычислить сумму положительных чисел в списке.  
-    [Оригинал задачи](https://www.codewars.com/kata/5715eaedb436cf5606000381)
+    [Оригинал задачи](https://www.codewars.com/kata/5715eaedb436cf5606000381)  
+
+    [`reversed_strings.py`](8-kyu/reversed_strings.py):  
+    *Условие (EN):* Complete the solution so that it reverses the string passed into it. ('world'  =>  'dlrow')   
+    *Комментарий:* Переворачивает переданную сроку наоборот.  
+    [Оригинал задачи](https://www.codewars.com/kata/5168bb5dfe9a00b126000018)  
