@@ -3,6 +3,10 @@
 #include <wchar.h>
 #include <locale.h>
 
+#define BUFFER_SIZE 1024
+#define ENG_ALPHABET_SIZE 26
+#define RUS_ALPHABET_SIZE 33
+
 void decrypt(wchar_t *text, int key);
 void encrypt(wchar_t *text, int key);
 
@@ -10,34 +14,34 @@ int main(void) {
     setlocale(LC_ALL, "");
     int choice;
     wprintf(L"1. Зашифровать текст.\n2. Расшифровать текст.\nВыберите '1' или '2': ");
-  
+
     while (wscanf(L"%d", &choice) != 1 || (choice != 1 && choice != 2)) {
-   	    wprintf(L"Ошибка: Введите '1' или '2': ");
-        
+        wprintf(L"Ошибка: Введите '1' или '2': ");
         wint_t c;
-        while ((c = getwchar()) != L'\n' && c != WEOF); // Очистка буфера в случае ошибкии
+        while ((c = getwchar()) != L'\n' && c != WEOF); // Очистка буфера
     }
-    
+
     wint_t c;
-    while ((c = getwchar()) != L'\n' && c != WEOF); // Очистка буфера
-    
+    while ((c = getwchar()) != L'\n' && c != WEOF); // Очистка буфера после выбора
+
     // Динамическое выделение памяти
-    wchar_t *text = (wchar_t *)malloc(1024 * sizeof(wchar_t));
+    wchar_t *text = (wchar_t *)malloc(BUFFER_SIZE * sizeof(wchar_t));
     if (!text) {
-    	wprintf(L"Ошибка выделения памяти !\n");
-    	return 1;
+        wprintf(L"Ошибка: не удалось выделить память!\n");
+        return 1;
     }
-    
+
     if (choice == 1) {
         wprintf(L"Введите текст: ");
-        fflush(stdout); // Очистка буфера
-        if (fgetws(text, 1024, stdin) == NULL) { // Если обращение к несуществующим данным
-            wprintf(L"Ошибка чтения текста!\n");
+        fflush(stdout);
+        if (fgetws(text, BUFFER_SIZE, stdin) == NULL) {
+            wprintf(L"Ошибка: не удалось прочитать текст!\n");
             free(text);
             return 1;
         }
-        if (wcslen(text) > 0 && text[wcslen(text) - 1] == L'\n') {
-            text[wcslen(text) - 1] = L'\0'; // Удаляет '\n' из введённой строки
+        size_t len = wcslen(text);
+        if (len > 0 && text[len - 1] == L'\n') {
+            text[len - 1] = L'\0'; // Удаление символа новой строки
         }
 
         int key;
@@ -47,44 +51,48 @@ int main(void) {
             while ((c = getwchar()) != L'\n' && c != WEOF); // Очистка буфера
             wprintf(L"Введите ключ: ");
         }
-        while ((c = getwchar()) != L'\n' && c != WEOF);
-        
+        while ((c = getwchar()) != L'\n' && c != WEOF); // Очистка буфера
+
         wprintf(L"Зашифрованный текст: ");
         encrypt(text, key);
-    }
-    else {
+    } else {
         wprintf(L"Введите зашифрованный текст: ");
-        fflush(stdout); 
-        if (fgetws(text, 1024, stdin) == NULL) { // Если обращение к несуществующим данным
-            wprintf(L"Ошибка чтения текста!\n");
+        fflush(stdout);
+        if (fgetws(text, BUFFER_SIZE, stdin) == NULL) {
+            wprintf(L"Ошибка: не удалось прочитать текст!\n");
             free(text);
             return 1;
         }
-        if (wcslen(text) > 0 && text[wcslen(text) - 1] == L'\n') {
-            text[wcslen(text) - 1] = L'\0';
+        size_t len = wcslen(text);
+        if (len > 0 && text[len - 1] == L'\n') {
+            text[len - 1] = L'\0'; // Удаление символа новой строки
         }
-        
+
         int key;
         wprintf(L"Введите ключ: ");
         while (wscanf(L"%d", &key) != 1 || key <= 0) {
             wprintf(L"Ошибка: введите положительное число\n");
-            while (getchar() != '\n');
+            while ((c = getwchar()) != L'\n' && c != WEOF); // Очистка буфера
             wprintf(L"Введите ключ: ");
         }
-        while ((c = getwchar()) != L'\n' && c != WEOF);
-        
+        while ((c = getwchar()) != L'\n' && c != WEOF); // Очистка буфера
+
         wprintf(L"Расшифрованный текст: ");
         decrypt(text, key);
     }
+
     free(text);
     return 0;
 }
 
 // Шифрование
 void encrypt(wchar_t *text, int key) {
+    wchar_t result[BUFFER_SIZE] = {0};
+    int index = 0;
     int flag = 0;
+
     for (int i = 0; text[i] != L'\0'; i++) {
-        //Замена 'Ё' на 'Е'
+        // Замена 'Ё' на 'Е'
         if (text[i] == L'Ё' || text[i] == L'ё') {
             if (text[i] == L'Ё') {
                 text[i] = L'Е';
@@ -93,99 +101,91 @@ void encrypt(wchar_t *text, int key) {
             }
             flag = 1;
         }
-        
-        // Английский
+
+        // Английский алфавит
         if ((text[i] >= L'A' && text[i] <= L'Z') || (text[i] >= L'a' && text[i] <= L'z')) {
-            int keyTemp = (key % 26 + 26) % 26;
-   		    wchar_t offset = (text[i] >= L'a') ? L'a' : L'A';
-            wprintf(L"%lc", ((text[i] - offset + keyTemp) % 26) + offset);
+            int keyTemp = (key % ENG_ALPHABET_SIZE + ENG_ALPHABET_SIZE) % ENG_ALPHABET_SIZE;
+            wchar_t offset = (text[i] >= L'a') ? L'a' : L'A';
+            result[index++] = ((text[i] - offset + keyTemp) % ENG_ALPHABET_SIZE) + offset;
         }
-        
-        // Русский
-        // Заглавные
+        // Русский алфавит (заглавные)
         else if (text[i] >= L'А' && text[i] <= L'Я') {
             wchar_t offset = L'А';
-            wchar_t formula = ((text[i] - offset + key + 33) % 33) + offset;
+            wchar_t formula = ((text[i] - offset + key + RUS_ALPHABET_SIZE) % RUS_ALPHABET_SIZE) + offset;
 
-			if (formula == L'а') { //'а' идет после 'Я' в Unicode
-            	formula = L'А';
-            	formula --;
+            if (formula == L'а') { // 'а' идет после 'Я' в Unicode
+                formula = L'А';
+                formula--;
             }
-   
-   		  if (flag == 1) { // Если была замена 'Ё'
-            	formula++;
-            	flag = 0;
+
+            if (flag == 1) { // Если была замена 'Ё'
+                formula++;
+                flag = 0;
             }
-            
-            // Если сдвиг проходит дальше буквы 'Я'
+
             int j = 0;
             if (text[i] > L'Е' && text[i] + key > L'Я') {
-            	formula ++;
-            	j = 1;
+                formula++;
+                j = 1;
             }
-            
-            // Если сдвиг проходит через 'Ё'
+
             if (formula == L'Ж') {
-            	formula = L'Ё';
+                formula = L'Ё';
+            } else if ((text[i] < L'Ж' || j == 1) && formula >= L'Ж') {
+                formula--;
             }
-            else if ((text[i] < L'Ж' || j == 1) && formula >= L'Ж') {
-            	formula --;
+            if (formula == L'Џ') { // Перед 'А' идет 'Џ'
+                formula = L'Я';
             }
-			if (formula == L'Џ') { // перед 'А' идет 'Џ'
-				formula = L'Я';
-			}
 
-            wprintf(L"%lc", formula);
+            result[index++] = formula;
         }
-        
-        // Строчные
-		else if (text[i] >= L'а' && text[i] <= L'я') {
+        // Русский алфавит (строчные)
+        else if (text[i] >= L'а' && text[i] <= L'я') {
             wchar_t offset = L'а';
-            wchar_t formula = ((text[i] - offset + key + 33) % 33) + offset;
- 
-			if (formula == L'ѐ') { //'ѐ' идет после 'я' в Unicode
-            	formula = L'а';
-            	formula --;
-            }
-         
-            if (flag == 1) { // Если была замена ё
-            	formula++;
-            	flag = 0;
+            wchar_t formula = ((text[i] - offset + key + RUS_ALPHABET_SIZE) % RUS_ALPHABET_SIZE) + offset;
+
+            if (formula == L'ѐ') { // 'ѐ' идет после 'я' в Unicode
+                formula = L'а';
+                formula--;
             }
 
-            // Если сдвиг проходит дальше буквы 'я'
+            if (flag == 1) { // Если была замена 'ё'
+                formula++;
+                flag = 0;
+            }
+
             int j = 0;
             if (text[i] > L'е' && text[i] + key > L'я') {
-            	formula ++;
-            	j = 1;
+                formula++;
+                j = 1;
             }
-            
-            // Если сдвиг проходит через 'ё
+
             if (formula == L'ж') {
-            	formula = L'ё';
+                formula = L'ё';
+            } else if ((text[i] < L'ж' || j == 1) && formula >= L'ж') {
+                formula--;
             }
-            else if ((text[i] < L'ж' || j == 1)&& formula >= L'ж') {
-            	formula --;
+            if (formula == L'Я') { // Перед 'а' стоит 'Я' в Unicode
+                formula = L'я';
             }
-            if (formula == L'Я') { // т.к перед 'а' стоит 'Я' в ASII
-            		formula = L'я';
-            	}
-            	
-            wprintf(L"%lc", formula);
-        }
-            else {
-            wprintf(L"%lc", text[i]);
+
+            result[index++] = formula;
+        } else {
+            result[index++] = text[i];
         }
     }
-    wprintf(L"\n");
+    wprintf(L"%ls\n", result);
 }
-
 
 // Расшифрование
 void decrypt(wchar_t *text, int key) {
+    wchar_t result[BUFFER_SIZE] = {0};
+    int index = 0;
     int flag = 0;
+
     for (int i = 0; text[i] != L'\0'; i++) {
-        //Замена 'Ё' на 'Ж'
+        // Замена 'Ё' на 'Ж'
         if (text[i] == L'Ё' || text[i] == L'ё') {
             if (text[i] == L'Ё') {
                 text[i] = L'Ж';
@@ -194,87 +194,81 @@ void decrypt(wchar_t *text, int key) {
             }
             flag = 1;
         }
-        
-        // Английский
-		if ((text[i] >= L'A' && text[i] <= L'Z') || (text[i] >= L'a' && text[i] <= L'z')) {
-            int keyTemp = (key % 26 + 26) % 26;
-  		    wchar_t offset = (text[i] >= L'a') ? L'a' : L'A';
-            wprintf(L"%lc", ((text[i] - offset - keyTemp + 26) % 26) + offset);
+
+        // Английский алфавит
+        if ((text[i] >= L'A' && text[i] <= L'Z') || (text[i] >= L'a' && text[i] <= L'z')) {
+            int keyTemp = (key % ENG_ALPHABET_SIZE + ENG_ALPHABET_SIZE) % ENG_ALPHABET_SIZE;
+            wchar_t offset = (text[i] >= L'a') ? L'a' : L'A';
+            result[index++] = ((text[i] - offset - keyTemp + ENG_ALPHABET_SIZE) % ENG_ALPHABET_SIZE) + offset;
         }
-        
-        // Русский
-        // Заглавные
+        // Русский алфавит (заглавные)
         else if (text[i] >= L'А' && text[i] <= L'Я') {
             wchar_t offset = L'А';
-            wchar_t formula = ((text[i] - offset - (key % 33) + 33) % 33) + offset;
+            wchar_t formula = ((text[i] - offset - (key % RUS_ALPHABET_SIZE) + RUS_ALPHABET_SIZE) % RUS_ALPHABET_SIZE) + offset;
 
-			if (formula == L'а') { // 'а' идёт после 'Я' в Unicode
-            	formula = L'А';
-            	formula --;
+            if (formula == L'а') { // 'а' идёт после 'Я' в Unicode
+                formula = L'А';
+                formula--;
             }
-	
-			if (flag == 1) { // Если была замена 'Ё'
-            	formula --;
-            	flag = 0;
+
+            if (flag == 1) { // Если была замена 'Ё'
+                formula--;
+                flag = 0;
             }
-             // Если сдвиг проходит дальше 'А' (если вычитать)
+
             int j = 0;
             if (text[i] <= L'Е' && text[i] - key < L'А') {
-            	formula--;
-            	j = 1;
+                formula--;
+                j = 1;
             }
-            // Если сдвиг проходит через 'Ё' (если вычитать)
+
             if (formula == L'Е') {
-            	formula = L'Ё';
+                formula = L'Ё';
+            } else if ((text[i] >= L'Ж' || j == 1) && formula <= L'Е') {
+                formula++;
             }
-            else if ((text[i] >= L'Ж' || j == 1) && formula <= L'Е') {
-            	formula ++;
-            }
-            
+
             if (formula == L'Џ') { // 'Џ' находится перед 'А'
-            	formula = L'Я';
+                formula = L'Я';
             }
-            
-            wprintf(L"%lc", formula);
+
+            result[index++] = formula;
         }
-        // Строчные
+        // Русский алфавит (строчные)
         else if (text[i] >= L'а' && text[i] <= L'я') {
             wchar_t offset = L'а';
-            wchar_t formula = ((text[i] - offset - (key % 33) + 33) % 33) + offset;
-        
-        	if (formula == L'ѐ') { // 'ѐ' идет после 'я'
-            	formula = L'а';
-            	formula--;
+            wchar_t formula = ((text[i] - offset - (key % RUS_ALPHABET_SIZE) + RUS_ALPHABET_SIZE) % RUS_ALPHABET_SIZE) + offset;
+
+            if (formula == L'ѐ') { // 'ѐ' идет после 'я'
+                formula = L'а';
+                formula--;
             }
-        	
+
             if (flag == 1) {
-             	formula --;
-             	flag = 0;
+                formula--;
+                flag = 0;
             }
 
-            // Если сдвиг проходит дальше 'а' (если вычитать)
-			int j = 0;
-			if (text[i] < L'ж' && text[i] - key < L'а') {
-            	formula--;
-            	j = 1;
+            int j = 0;
+            if (text[i] < L'ж' && text[i] - key < L'а') {
+                formula--;
+                j = 1;
             }
 
-            // Если сдвиг проходит через 'ё'
             if (formula == L'е') {
-            	formula = L'ё';
+                formula = L'ё';
+            } else if ((text[i] >= L'ж' || j == 1) && formula <= L'е') {
+                formula++;
             }
-			else if ((text[i] >= L'ж' || j == 1) && formula <= L'е') {
-            	formula++;
-            }
-            
+
             if (formula == L'Я') { // 'я' находится перед 'А'
-            	formula = L'я';
+                formula = L'я';
             }
-            wprintf(L"%lc", formula);
+
+            result[index++] = formula;
         } else {
-            wprintf(L"%lc", text[i]);
+            result[index++] = text[i];
         }
     }
-    
-    wprintf(L"\n");
+    wprintf(L"%ls\n", result);
 }
