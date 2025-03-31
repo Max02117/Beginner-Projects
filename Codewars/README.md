@@ -1,5 +1,5 @@
 # Прогресс на Codewars  
-**Всего решено:** 4 задачи  
+**Всего решено:** 8 задачи  
 **Максимальный уровень:** 8 kyu  
 [Профиль на Codewars](https://www.codewars.com/users/Max02117)  
 
@@ -39,3 +39,8 @@
     *Условие (EN):* Complete the method that takes a boolean value and return a "Yes" string for true, or a "No" string for false.   
     *Комментарий:* Возвращает строку взависимости от типа bool.  
     [Оригинал задачи](https://www.codewars.com/kata/53369039d7ab3ac506000467)  
+
+    [`square_n_sum.py`](8-kyu/square_n_sum.py):  
+    *Условие (EN):* Complete the square sum function so that it squares each number passed into it and then sums the results together. ([1,2,2] => 1²+2²+2²=9)  
+    *Комментарий:* Возводит все числа в квадрат и суммирует числа.  
+    [Оригинал задачи](https://www.codewars.com/kata/515e271a311df0350d00000f)  
