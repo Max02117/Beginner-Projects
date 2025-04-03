@@ -1,6 +1,6 @@
 # Прогресс на Codewars  
 **Всего решено:** 8 задачи  
-**Максимальный уровень:** 8 kyu  
+**Максимальный уровень:** 7 kyu 
 [Профиль на Codewars](https://www.codewars.com/users/Max02117)  
 
 ## Структура  
@@ -44,3 +44,13 @@
     *Условие (EN):* Complete the square sum function so that it squares each number passed into it and then sums the results together. ([1,2,2] => 1²+2²+2²=9)  
     *Комментарий:* Возводит все числа в квадрат и суммирует числа.  
     [Оригинал задачи](https://www.codewars.com/kata/515e271a311df0350d00000f)  
+
+    [`opposite_number.py`](8-kyu/opposite_number.py):  
+    *Условие (EN):* Very simple, given a number, find its opposite (additive inverse). (14 => -14)  
+    *Комментарий:* Инвертировать число.  
+    [Оригинал задачи](https://www.codewars.com/kata/56dec885c54a926dcd001095)  
+
+    [`strip_first_last.py`](8-kyu/strip_first_last.py):  
+    *Условие (EN):* It's pretty straightforward. Your goal is to create a function that removes the first and last characters of a string. You're given one parameter, the original string.
+    *Комментарий:* Удаляет первый и последний символ строки.  
+    [Оригинал задачи](https://www.codewars.com/kata/56bc28ad5bdaeb48760009b0)  
