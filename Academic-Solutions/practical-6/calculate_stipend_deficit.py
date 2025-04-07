@@ -1,16 +1,12 @@
-A = float(input("Введите степендию: "))
-B = float(input("Введите начальныые расходы: "))
+stipend = float(input("Стипендия (руб.): "))
+base_expenses = float(input("Расходы (руб.): "))
 
-if B <= A:
-    print("Ошибка: Расходы должны быть больше степендии.")
-    exit()
-
-total = 0
-current = B
+total_deficit = 0.0
+current_expenses = base_expenses
 
 for _ in range(10):
-    deficit = A - B
-    total += current
-    current *= 1.03
+    monthly_deficit = current_expenses - stipend
+    total_deficit += monthly_deficit
+    current_expenses *= 1.03
 
-print("Нужно попросить:", round(total - 10*A), "рублей.")
+print(f"Необходимая сумма: {total_deficit:.2f} руб.")
