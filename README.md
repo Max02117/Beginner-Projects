@@ -14,7 +14,7 @@
 - [`index.html`](/website/index.html) + [`styles.css`](/website/styles.css) — простой статический сайт с базовой вёрсткой.  
 
 ### 🥋 Codewars  
-Решения задач с Codewars (Python). Уровень: **8 kyu**.  
+Решения задач с Codewars (Python). Уровень: **7 kyu**.  
 [Подробнее →](/Codewars/README.md)  
 
 ### 📚 Academic Solutions  

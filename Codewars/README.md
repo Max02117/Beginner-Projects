@@ -5,12 +5,12 @@
 
 ## Структура  
 - `7-kyu/` 
-    [`vowel_count.py`](7-kyu/vowel_count.py):  
+  -  [`vowel_count.py`](7-kyu/vowel_count.py):  
     *Условие (EN):* Return the number (count) of vowels in the given string. We will consider a, e, i, o, u as vowels for this Kata (but not y).
     *Комментарий:* Счетчик гласных в строке.  
     [Оригинал задачи](https://www.codewars.com/kata/54ff3102c1bad923760001f3)  
 
-    [`vowel_count.py`](7-kyu/vowel_count.py):  
+  -  [`vowel_count.py`](7-kyu/vowel_count.py):  
     *Условие (EN):* Task is to write a function that takes a string and return a new string with all vowels removed. (This website is for losers LOL! => Ths wbst s fr lsrs LL!)
     *Комментарий:* Удаление всех гласный из строки.  
     [Оригинал задачи](https://www.codewars.com/kata/52fba66badcd10859f00097e)  

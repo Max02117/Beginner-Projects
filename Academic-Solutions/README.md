@@ -41,10 +41,10 @@
 
 ---
 
-  ### Практическая работа 7: Графика  
+### Практическая работа 7: Графика  
 - **`1-plot_function.py`**  
-  **Задача:** Нарисовать определённый график.
-  **Результат:** [graph.png](/Academic-Solutions/practical-7/graph.png)
+  **Задача:** Нарисовать определённый график.  
+  **Результат:** [graph.png](/Academic-Solutions/practical-7/graph.png)  
 
   - **`2-fill_region.py`**  
   **Задача:** Нарисовать определенный многоугольник  
@@ -63,7 +63,7 @@
   
 - **`2-sum_index_equal_value.py`**  
   **Задача:** Вычислить сумму элементов, чьи порядковые номера совпадают со значениями.  
-[Перейти в папку →](/Academic-Solutions/practical-8)
+[Перейти в папку →](/Academic-Solutions/practical-8)  
 
 ---
 
@@ -73,7 +73,7 @@
   
 - **`2-compress_array.py`**  
   **Задача:** Сжать массив, удалив все нулевые элементы.  
-[Перейти в папку →](/Academic-Solutions/practical-9)
+[Перейти в папку →](/Academic-Solutions/practical-9)  
 
 ---
 
@@ -89,7 +89,7 @@
   
 - **`4-matrix_border_sum.py`**  
   **Задача:** Определить сумму элементов, расположенных по контуру двумерного массива.  
-[Перейти в папку →](/Academic-Solutions/practical-10)
+[Перейти в папку →](/Academic-Solutions/practical-10)  
 
 ---
 
