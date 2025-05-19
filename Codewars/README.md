@@ -1,11 +1,16 @@
 # Прогресс на Codewars  
-**Всего решено:** 11 задачи  
+**Всего решено:** 12 задач  
 **Максимальный уровень:** 7 kyu 
 [Профиль на Codewars](https://www.codewars.com/users/Max02117)  
 
 ## Структура  
 - `7-kyu/` 
-  -  [`vowel_count.py`](7-kyu/vowel_count.py):  
+  -  [`square_every_digit.py`](7-kyu/square_every_digit.py):  
+    *Условие (EN):* In this kata, you are asked to square every digit of a number and concatenate them. For example, if we run 9119 through the function, 811181 will come out, because 9² is 81 and 1² is 1. (81-1-1-81)
+    *Комментарий:* Нужно возвести в квадрат каждую цифру числа и объединить их.  
+    [Оригинал задачи](https://www.codewars.com/kata/546e2562b03326a88e000020)  
+
+  -  [`disemvowel_trolls.py`](7-kyu/disemvowel_trolls.py):  
     *Условие (EN):* Return the number (count) of vowels in the given string. We will consider a, e, i, o, u as vowels for this Kata (but not y).
     *Комментарий:* Счетчик гласных в строке.  
     [Оригинал задачи](https://www.codewars.com/kata/54ff3102c1bad923760001f3)  
