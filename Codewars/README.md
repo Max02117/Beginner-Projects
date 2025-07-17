@@ -1,10 +1,15 @@
 # Прогресс на Codewars  
-**Всего решено:** 12 задач  
+**Всего решено:** 14 задач  
 **Максимальный уровень:** 7 kyu 
 [Профиль на Codewars](https://www.codewars.com/users/Max02117)  
 
 ## Структура  
 - `7-kyu/` 
+  -  [`highest_and_lowest.py`](7-kyu/highest_and_lowest.py):  
+    *Условие (EN):* In this little assignment you are given a string of space separated numbers, and have to return the highest and lowest number.
+    *Комментарий:*  Дается строка чисел, и нужно вернуть наибольшее и наименьшее число. 
+    [Оригинал задачи](https://www.codewars.com/kata/554b4ac871d6813a03000035)  
+
   -  [`square_every_digit.py`](7-kyu/square_every_digit.py):  
     *Условие (EN):* In this kata, you are asked to square every digit of a number and concatenate them. For example, if we run 9119 through the function, 811181 will come out, because 9² is 81 and 1² is 1. (81-1-1-81)
     *Комментарий:* Нужно возвести в квадрат каждую цифру числа и объединить их.  
