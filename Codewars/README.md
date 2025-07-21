@@ -1,27 +1,32 @@
 # Прогресс на Codewars  
-**Всего решено:** 14 задач  
-**Максимальный уровень:** 7 kyu 
+**Всего решено:** 15 задач  
+**Максимальный уровень:** 7 kyu  
 [Профиль на Codewars](https://www.codewars.com/users/Max02117)  
 
 ## Структура  
 - `7-kyu/` 
+ -  [`descending_order.py`](7-kyu/descending_order.py):  
+    *Условие (EN):* Your task is to make a function that can take any non-negative integer as an argument and return it with its digits in descending order. Essentially, rearrange the digits to create the highest possible number.  
+    *Комментарий:* Из полученного числа написать цифры в обратном порядке.  
+    [Оригинал задачи](https://www.codewars.com/kata/5467e4d82edf8bbf40000155)  
+
   -  [`highest_and_lowest.py`](7-kyu/highest_and_lowest.py):  
-    *Условие (EN):* In this little assignment you are given a string of space separated numbers, and have to return the highest and lowest number.
-    *Комментарий:*  Дается строка чисел, и нужно вернуть наибольшее и наименьшее число. 
+    *Условие (EN):* In this little assignment you are given a string of space separated numbers, and have to return the highest and lowest number.  
+    *Комментарий:*  Дается строка чисел, и нужно вернуть наибольшее и наименьшее число.  
     [Оригинал задачи](https://www.codewars.com/kata/554b4ac871d6813a03000035)  
 
   -  [`square_every_digit.py`](7-kyu/square_every_digit.py):  
-    *Условие (EN):* In this kata, you are asked to square every digit of a number and concatenate them. For example, if we run 9119 through the function, 811181 will come out, because 9² is 81 and 1² is 1. (81-1-1-81)
+    *Условие (EN):* In this kata, you are asked to square every digit of a number and concatenate them. For example, if we run 9119 through the function, 811181 will come out, because 9² is 81 and 1² is 1. (81-1-1-81)  
     *Комментарий:* Нужно возвести в квадрат каждую цифру числа и объединить их.  
     [Оригинал задачи](https://www.codewars.com/kata/546e2562b03326a88e000020)  
 
   -  [`disemvowel_trolls.py`](7-kyu/disemvowel_trolls.py):  
-    *Условие (EN):* Return the number (count) of vowels in the given string. We will consider a, e, i, o, u as vowels for this Kata (but not y).
+    *Условие (EN):* Return the number (count) of vowels in the given string. We will consider a, e, i, o, u as vowels for this Kata (but not y).  
     *Комментарий:* Счетчик гласных в строке.  
     [Оригинал задачи](https://www.codewars.com/kata/54ff3102c1bad923760001f3)  
 
   -  [`vowel_count.py`](7-kyu/vowel_count.py):  
-    *Условие (EN):* Task is to write a function that takes a string and return a new string with all vowels removed. (This website is for losers LOL! => Ths wbst s fr lsrs LL!)
+    *Условие (EN):* Task is to write a function that takes a string and return a new string with all vowels removed. (This website is for losers LOL! => Ths wbst s fr lsrs LL!)  
     *Комментарий:* Удаление всех гласный из строки.  
     [Оригинал задачи](https://www.codewars.com/kata/52fba66badcd10859f00097e)  
 
@@ -72,6 +77,6 @@
     [Оригинал задачи](https://www.codewars.com/kata/56dec885c54a926dcd001095)  
 
   -  [`strip_first_last.py`](8-kyu/strip_first_last.py):  
-    *Условие (EN):* It's pretty straightforward. Your goal is to create a function that removes the first and last characters of a string. You're given one parameter, the original string.
+    *Условие (EN):* It's pretty straightforward. Your goal is to create a function that removes the first and last characters of a string. You're given one parameter, the original string.  
     *Комментарий:* Удаляет первый и последний символ строки.  
-    [Оригинал задачи](https://www.codewars.com/kata/56bc28ad5bdaeb48760009b0)    
+    [Оригинал задачи](https://www.codewars.com/kata/56bc28ad5bdaeb48760009b0)  
