@@ -4,7 +4,12 @@
 [Профиль на Codewars](https://www.codewars.com/users/Max02117)  
 
 ## Структура  
-- `7-kyu/` 
+- `7-kyu/`  
+ -  [`list_filtering.py`](7-kyu/list_filtering.py):  
+    *Условие (EN):* In this kata you will create a function that takes a list of non-negative integers and strings and returns a new list with the strings filtered out.  
+    *Комментарий:* Нужно вернуть новый список, в котором останутся только целые числа.  
+    [Оригинал задачи](https://www.codewars.com/kata/53dbd5315a3c69eed20002dd)  
+
  -  [`descending_order.py`](7-kyu/descending_order.py):  
     *Условие (EN):* Your task is to make a function that can take any non-negative integer as an argument and return it with its digits in descending order. Essentially, rearrange the digits to create the highest possible number.  
     *Комментарий:* Из полученного числа написать цифры в обратном порядке.  
