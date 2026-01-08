@@ -17,7 +17,7 @@ BOT_TOKEN = os.getenv('BOT_TOKEN')
 
 BOT_HISTORY = {}
 
-# Функция  добавления роли в тему общения
+# Добавление роли в тему общения
 def add_new_role(user_id, theme, role):
     # Если пользователя нет в памяти - мы добавляем его
     if user_id not in BOT_HISTORY:
@@ -47,7 +47,7 @@ def add_messages(user_id, theme, prompt, answer_ai):
     BOT_HISTORY[user_id][theme]['messages'].append({'role': 'user', 'content': prompt})
     BOT_HISTORY[user_id][theme]['messages'].append({'role': 'assistant', 'content': answer_ai})
     
-# Функция получения роли диалога
+# Получения роли диалога
 def get_role(user_id, theme):
     # если нет данных - вернем False
     if user_id not in BOT_HISTORY:
@@ -59,7 +59,7 @@ def get_role(user_id, theme):
     # Иначе возвращаем роль
     return BOT_HISTORY[user_id][theme]['role']['content']
 
-# Функция получения истории сообщений
+# Получение истории сообщений
 def get_messages(user_id, theme):
     # если нет данных - вернем False
     if user_id not in BOT_HISTORY:
@@ -88,13 +88,6 @@ def answer_with_history(history, prompt):
 def answer_with_history_and_role(role, history, prompt):
     return g4f.ChatCompletion.create(model=g4f.models.gpt_4, messages =[{'role': 'system', 'content': role}] + history + [{'role': 'user', 'content': prompt}])
 
-# Функции для телеграмма
-# Инициализация бота и диспетчера
-tg_bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(
-      parse_mode=ParseMode.MARKDOWN,
-    ))
-dp = Dispatcher()
-
 # Информация о чатах
 TG_CHATS = {}
 
@@ -103,7 +96,7 @@ async def add_theme_tg(user_id, theme, message):
     TG_CHATS[user_id] = theme 
     await message.reply('Добавил тему разговора')
 
-# Функция смены роли
+# Смена роли
 async def change_role_tg(user_id, role, message):
     if user_id not in TG_CHATS:
         await message.answer('Вы не задали тему общения!')
@@ -130,6 +123,13 @@ async def send_answer_tg(message):
         answer = answer_with_history_and_role(role, history, message.text)
     add_messages(message.from_user.id, TG_CHATS[message.from_user.id], message.text, answer)
     await message.answer(answer)
+    
+# Функции для телеграмма
+# Инициализация бота и диспетчера
+tg_bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(
+      parse_mode=ParseMode.MARKDOWN,
+    ))
+dp = Dispatcher()
     
 # Обработчик команды /start
 @dp.message(Command('start'))

@@ -3,7 +3,7 @@ from g4f.client import Client
 def send_request_gpt(content: str):
     client = Client()
     response = client.chat.completions.create(
-        model='gpt-4o-mini',
+        model='gpt-4.1',
         messages=[{'role': 'user', 'content': content}],
         web_search=False
     )
