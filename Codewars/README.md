@@ -5,6 +5,11 @@
 
 ## Структура  
 - `7-kyu/`  
+ -  [`Youre_a_square.py`](7-kyu/Youre_a_square.py):  
+    *Условие (EN):* Given an integral number, determine if it's a square number.  
+    *Комментарий:* Проверка на идеальный квадрат.  
+    [Оригинал задачи](https://www.codewars.com/kata/54c27a33fb7da0db0100040e/train/python)  
+    
  -  [`list_filtering.py`](7-kyu/list_filtering.py):  
     *Условие (EN):* In this kata you will create a function that takes a list of non-negative integers and strings and returns a new list with the strings filtered out.  
     *Комментарий:* Нужно вернуть новый список, в котором останутся только целые числа.  
