@@ -5,6 +5,11 @@
 
 ## Структура  
 - `7-kyu/`  
+ -  [`Youre_a_square.py`](7-kyu/Youre_a_square.py):  
+    *Условие (EN):* Implement a function that determines whether a string that contains only letters is an isogram.  
+    *Комментарий:* Изограмма. Проверка на наличие повторяющихся букв.  
+    [Оригинал задачи](https://www.codewars.com/kata/54ba84be607a92aa900000f1)  
+
  -  [`mumbling.py`](7-kyu/mumbling.py):  
     *Условие:* Для каждой буквы строки создать блок, где первая буква заглавная, остальные повторяются в нижнем регистре столько раз, как её порядковый индекс в строке (начиная с 0). Блоки объединяются через дефис (-).  
     [Оригинал задачи](https://www.codewars.com/kata/5667e8f4e3f572a8f2000039)  
