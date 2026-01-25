@@ -5,7 +5,12 @@
 
 ## Структура  
 - `7-kyu/`  
- -  [`Youre_a_square.py`](7-kyu/Youre_a_square.py):  
+ -  [`exes_and_ohs.py`](7-kyu/exes_and_ohs.py):  
+    *Условие (EN):* Check to see if a string has the same amount of 'x's and 'o's. The method must return a boolean and be case insensitive.  
+    *Комментарий:* Проверка на одинаковое количество букв 'x' и 'o'.  
+    [Оригинал задачи](https://www.codewars.com/kata/55908aad6620c066bc00002a)  
+
+ -  [`isograms.py`](7-kyu/isograms.py):  
     *Условие (EN):* Implement a function that determines whether a string that contains only letters is an isogram.  
     *Комментарий:* Изограмма. Проверка на наличие повторяющихся букв.  
     [Оригинал задачи](https://www.codewars.com/kata/54ba84be607a92aa900000f1)  
