@@ -1,5 +1,4 @@
-from fastapi import FastAPI, HTTPException, Path, Query, Body, Depends
-from typing import Annotated
+from fastapi import FastAPI, HTTPException, Depends
 from sqlalchemy.orm import Session
 from database import engine, session_local
 from models import Base, User, Post
