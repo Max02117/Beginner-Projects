@@ -1,76 +1,47 @@
-from fastapi import FastAPI, HTTPException, Path, Query, Body
-from typing import Optional, List, Dict, Annotated
-from pydantic import BaseModel, Field
+from fastapi import FastAPI, HTTPException, Path, Query, Body, Depends
+from typing import Annotated
+from sqlalchemy.orm import Session
+from database import engine, session_local
+from models import Base, User, Post
+from schemas import UserCreate, PostCreate, PostResponse, User as DbUser
 
 app = FastAPI()
 
-class User(BaseModel):
-    id: int
-    name: str
-    age: int
+Base.metadata.create_all(bind=engine)   # создаёт таблицы из моделей Base в базе данных
 
-class Post(BaseModel):       
-    id: int
-    title: str
-    body: str
-    author: User
+# Подключение к БД
+def get_db():
+    db = session_local()
+    try:
+        yield db
+    finally:
+        db.close()
+
+# Создание нового пользователя
+@app.post('/users/', response_model=DbUser)
+def create_user(user: UserCreate, db: Session = Depends(get_db)) -> DbUser:
+    db_user = User(name=user.name, age=user.age)
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
     
-class PostCreate(BaseModel):
-    title: str
-    body: str
-    author_id: int
+    return db_user
+
+# Создание нового поста
+@app.post('/posts/', response_model=PostResponse)
+def create_post(post: PostCreate, db: Session = Depends(get_db)) -> PostResponse:
+    db_user = db.query(User).filter(User.id == post.author_id).first()
+    if db_user is None:
+        raise HTTPException(status_code=404, detail='User not found')
     
-class UserCreate(BaseModel):
-    name: Annotated[str, Field(..., title='Имя пользователя', min_length=2, max_length=30)]
-    age: Annotated[int, Field(..., title='Возраст', ge=1, le=120)]
-
-users = [
-    {'id': 1, 'name': 'John', 'age': 34},
-    {'id': 2, 'name': 'Alex', 'age': 12},
-    {'id': 3, 'name': 'Bob', 'age': 56}
-]
-
-posts = [
-    {'id': 1, 'title': 'News 1', 'body': 'Text 1', 'author': users[1]},
-    {'id': 2, 'title': 'News 2', 'body': 'Text 2', 'author': users[0]},
-    {'id': 3, 'title': 'News 3', 'body': 'Text 3', 'author': users[2]}
-]
-
-@app.get('/items')
-async def items() -> List[Post]:
-    return [Post(**post) for post in posts]
-
-@app.get('/items/{id}')
-async def item(id: Annotated[int, Path(ge=1, title='id поста')]) -> Post:
-    for post in posts: 
-        if post['id'] == id:
-            return Post(**post) 
-    raise HTTPException(status_code=404, detail='Post not Found')
-
-@app.post('/item/add')
-async def add_item(post: PostCreate) -> Post:
-    author = next((user for user in users if user['id'] == post.author_id), None)
-    if not author:
-        raise HTTPException(status_code=404, detail='User not Found')
+    db_post = Post(title=post.title, body=post.body, author_id=post.author_id)
+    db.add(db_post)
+    db.commit()
+    db.refresh(db_user)
     
-@app.post('/user/add')
-async def add_user(user: Annotated[UserCreate, Body(..., example={
-        'name': 'UserName',
-        'ago': 20
-    })]) -> User:
+    return db_post
 
-    new_user_id = len(posts) + 1
-    new_user = {'id': new_user_id, 'name': user.name, 'age': user.age}
-    users.append(new_user)
-    return User(**new_user)
-
-# для ссылок .../search?post_id=1
-@app.get('/search')
-async def search(post_id: Annotated[Optional[int], Query(ge=1, title='id поста')]) -> Dict[str, Optional[Post]]:
-    if post_id:
-        for post in posts:
-            if post['id'] == post_id:
-                return {'data': Post(**post)}
-        raise HTTPException(status_code=404, detail='Post not Found')
-    else:
-        return {'data': None}
+# Вывод всех статей
+@app.get('/posts/', response_model=list[PostResponse])
+def posts(db: Session = Depends(get_db)):
+    return db.query(Post).all()
