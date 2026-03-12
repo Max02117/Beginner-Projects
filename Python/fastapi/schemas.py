@@ -10,7 +10,7 @@ class UserCreate(UserBase):
     pass
 
 # Сервер возвращает
-class User(UserBase):
+class UserResponse(UserBase):
     id: int
     model_config = {
         "from_attributes": True    # Разрешает Pydantic читать объект как ORM, а не только dict
@@ -26,7 +26,7 @@ class PostCreate(PostBase):
 
 class PostResponse(PostBase):       
     id: int
-    author: User
+    author: UserResponse
     
     model_config = {
         "from_attributes": True

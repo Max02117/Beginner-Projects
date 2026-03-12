@@ -10,7 +10,7 @@ engine = create_engine(
     connect_args={'check_same_thread': False}   # Разрешает обращаться к БД из разных потоков
     )
 
-session_local = sessionmaker(
+Session_local = sessionmaker(
     autoflush=False,
     autocommit=False,
     bind=engine
